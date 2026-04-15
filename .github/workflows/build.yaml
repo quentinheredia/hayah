@@ -4,17 +4,36 @@ on:
   push:
     branches: [main]
 
+# GitHub now strictly requires these permissions for Pages deployments
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20" # Bumping to Node 20 for long-term support
       - run: npm install
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v1
+
+      # Using v3 here as it's the latest for pages-artifact and uses the new architecture
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: "_site"
-      - uses: actions/deploy-pages@v1
+
+  deploy:
+    # GitHub recommends splitting the deploy step into its own job for security and logging
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
