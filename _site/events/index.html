@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events — Hayah International Ministries Inc.</title>
+    <meta name="description" content="Upcoming events from Hayah International Ministries — worship experiences, prayer gatherings, and crusades in Canada, Nigeria, and beyond." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+
+    <!-- Announce Bar -->
+<div class="announce" role="banner">
+  🔥 Ottawa Springs of Fire is happening —
+  <a href="https://www.eventbrite.ca/e/ottawa-springs-of-fire-registration-1497839190339" target="_blank" rel="noopener noreferrer">Register your spot now →</a>
+</div>
+
+<!-- Navbar -->
+<header class="navbar" id="home">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Hayah Ministries Home">
+      <div class="nav-logo-mark" aria-hidden="true">H</div>
+      <div class="nav-logo-text">
+        <strong>Hayah Ministries</strong>
+        <span>International Inc.</span>
+      </div>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/about"        class="">About</a>
+      <a href="/our-mission"  class="">Mission</a>
+      <a href="/events"       class="active">Events</a>
+      <a href="/gallery"      class="">Gallery</a>
+      <a href="/publications" class="">Publications</a>
+      <a href="/the-bridge"   class="">The Bridge</a>
+      <a href="/give"         class="">Give</a>
+      <a href="/contact"      class="">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="/give" class="btn-outline">Donate</a>
+      <a href="/events" class="btn-primary">Register</a>
+    </div>
+    <button
+      class="nav-hamburger"
+      onclick="openMobileMenu()"
+      aria-label="Open menu"
+      aria-expanded="false"
+      id="hamburgerBtn"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+  <div class="mobile-menu-top">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">H</div>
+      <div class="nav-logo-text">
+        <strong>Hayah Ministries</strong>
+        <span>International Inc.</span>
+      </div>
+    </div>
+    <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <nav aria-label="Mobile navigation">
+    <a href="/about"        onclick="closeMobileMenu()">About Us <span>→</span></a>
+    <a href="/our-mission"  onclick="closeMobileMenu()">Mission &amp; Vision <span>→</span></a>
+    <a href="/events"       onclick="closeMobileMenu()">Events <span>→</span></a>
+    <a href="/commission"   onclick="closeMobileMenu()">Commission <span>→</span></a>
+    <a href="/gallery"      onclick="closeMobileMenu()">Gallery <span>→</span></a>
+    <a href="/publications" onclick="closeMobileMenu()">Publications <span>→</span></a>
+    <a href="/the-bridge"   onclick="closeMobileMenu()">The Bridge <span>→</span></a>
+    <a href="/give"         onclick="closeMobileMenu()">Give <span>→</span></a>
+    <a href="/contact"      onclick="closeMobileMenu()">Contact <span>→</span></a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <a href="/events"  class="btn-primary"  style="width:100%;padding:13px;font-size:0.88rem;text-align:center;display:block;">Register for an Event</a>
+    <a href="/give"    class="btn-outline"  style="width:100%;padding:12px;font-size:0.88rem;text-align:center;display:block;background:none;color:rgba(255,255,255,0.6);">Make a Donation</a>
+  </div>
+</div>
+
+
+    <main>
+      
+<div class="page-header">
+  <div class="container page-header-inner">
+    <div class="page-header-eyebrow">Calendar</div>
+    <h1 class="page-header-title"><em>Upcoming</em> Events</h1>
+    <p class="page-header-sub">Join us at our next gathering — in Canada, Nigeria, and across the globe.</p>
+  </div>
+</div>
+
+<section class="events-section section" aria-labelledby="events-heading">
+  <div class="container">
+    <h2 class="sr-only" id="events-heading">All Events</h2>
+    <div class="events-grid">
+      <!-- Featured Event -->
+      <article class="event-card featured fade-up" aria-labelledby="event-1-title">
+        <div class="event-image">
+          <div class="media-placeholder">
+            <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5">
+              <rect x="4" y="8" width="40" height="32" rx="3" />
+              <circle cx="16" cy="20" r="4" />
+              <path d="M4 32l10-8 8 6 8-10 14 12" />
+            </svg>
+            <span>Event photo</span>
+          </div>
+          <div class="event-badge">Featured</div>
+        </div>
+        <div class="event-body">
+          <div class="event-date">September 20, 2025</div>
+          <h3 class="event-title" id="event-1-title">The Great Awakening Worship Experience</h3>
+          <p class="event-desc">
+            A global worship convergence organised by Hayah Ministries International, Ottawa.
+            Expect God's mighty power through healing, deliverance, and extraordinary breakthrough.
+          </p>
+          <div class="event-meta">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14">
+              <path d="M8 1.5A4.5 4.5 0 0 0 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6A4.5 4.5 0 0 0 8 1.5Z"/>
+              <circle cx="8" cy="6" r="1.5"/>
+            </svg>
+            Tony Graham Recreation Complex, 100 Charlie Rogers, Kanata, ON
+          </div>
+          <a href="https://www.eventbrite.ca/e/ottawa-springs-of-fire-registration-1497839190339" class="event-link" target="_blank" rel="noopener noreferrer" aria-label="Register for The Great Awakening">
+            Register Now
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Event 2 -->
+      <article class="event-card fade-up" style="transition-delay:0.1s" aria-labelledby="event-2-title">
+        <div class="event-image" style="background:var(--navy-mid)">
+          <div class="media-placeholder">
+            <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5">
+              <rect x="4" y="8" width="40" height="32" rx="3" />
+              <circle cx="16" cy="20" r="4" />
+              <path d="M4 32l10-8 8 6 8-10 14 12" />
+            </svg>
+            <span>Event photo</span>
+          </div>
+          <div class="event-badge">2025</div>
+        </div>
+        <div class="event-body">
+          <div class="event-date">Coming Soon · 2025</div>
+          <h3 class="event-title" id="event-2-title">Canada &amp; Botswana Worship Experience</h3>
+          <p class="event-desc">Building on the momentum of our Makurdi crusade, we are taking the next steps into Canada and Botswana.</p>
+          <a href="/contact" class="event-link" aria-label="Learn more about Canada & Botswana Worship Experience">
+            Watch for Updates
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Event 3 -->
+      <article class="event-card fade-up" style="transition-delay:0.18s" aria-labelledby="event-3-title">
+        <div class="event-image" style="background:var(--navy-soft)">
+          <div class="media-placeholder">
+            <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5">
+              <rect x="4" y="8" width="40" height="32" rx="3" />
+              <circle cx="16" cy="20" r="4" />
+              <path d="M4 32l10-8 8 6 8-10 14 12" />
+            </svg>
+            <span>Event photo</span>
+          </div>
+          <div class="event-badge">Recurring</div>
+        </div>
+        <div class="event-body">
+          <div class="event-date">Monthly · Ottawa &amp; Online</div>
+          <h3 class="event-title" id="event-3-title">Knee-Force Prayer Gathering</h3>
+          <p class="event-desc">Monthly intercessory prayer meetings for the body of Christ — in person and online. All are welcome.</p>
+          <a href="/contact" class="event-link" aria-label="Learn more about Knee-Force Prayer">
+            Learn More
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+    <footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-mark">H</div>
+          <div class="nav-logo-text">
+            <strong>Hayah Ministries</strong>
+            <span>International Inc.</span>
+          </div>
+        </div>
+        <p>
+          A movement of Divine manifestation — called to reveal the reality
+          of God in our generation. When God speaks, it must HAYAH.
+        </p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-btn" aria-label="Facebook">f</a>
+          <a href="#" class="social-btn" aria-label="Instagram">in</a>
+          <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+          <a href="#" class="social-btn" aria-label="Twitter/X">✕</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Ministry</div>
+        <ul class="footer-links">
+          <li><a href="/about">About Hayah</a></li>
+          <li><a href="/our-mission">Mission &amp; Vision</a></li>
+          <li><a href="/about#commission">Our Commission</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+          <li><a href="/the-bridge">The Bridge</a></li>
+          <li><a href="/contact">Volunteer</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-links">
+          <li><a href="/publications">Publications</a></li>
+          <li><a href="https://give.tithe.ly/?formId=65f0cbd1-773d-49a9-ada7-ac01028b306f" target="_blank" rel="noopener noreferrer">Online Giving</a></li>
+          <li><a href="/events">Prayer Gatherings</a></li>
+          <li><a href="/contact">Mental Health</a></li>
+          <li><a href="/contact">Missions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links" style="gap:14px">
+          <li style="font-size:0.82rem;line-height:1.6">
+            <span style="display:block;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.3);margin-bottom:2px;">Canada</span>
+            +1 (613) 790-2794
+          </li>
+          <li style="font-size:0.82rem;line-height:1.6">
+            <span style="display:block;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.3);margin-bottom:2px;">Nigeria</span>
+            +234 (0) 703 702 7576
+          </li>
+          <li style="font-size:0.82rem">
+            <a href="mailto:mailus@hayahministries.org">mailus@hayahministries.org</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024–2025 Hayah Ministries International Inc. All rights reserved.</span>
+      <span>Built for the Kingdom · <a href="/">Back to top ↑</a></span>
+    </div>
+  </div>
+</footer>
+
+
+    <script src="/assets/scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!-- Announce Bar -->
+<div class="announce" role="banner">
+  🔥 Ottawa Springs of Fire is happening —
+  <a href="https://www.eventbrite.ca/e/ottawa-springs-of-fire-registration-1497839190339" target="_blank" rel="noopener noreferrer">Register your spot now →</a>
+</div>
+
+<!-- Navbar -->
+<header class="navbar" id="home">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="Hayah Ministries Home">
+      <div class="nav-logo-mark" aria-hidden="true">H</div>
+      <div class="nav-logo-text">
+        <strong>Hayah Ministries</strong>
+        <span>International Inc.</span>
+      </div>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/about"        class="{{ page.url | isActive('/about') }}">About</a>
+      <a href="/our-mission"  class="{{ page.url | isActive('/our-mission') }}">Mission</a>
+      <a href="/events"       class="{{ page.url | isActive('/events') }}">Events</a>
+      <a href="/gallery"      class="{{ page.url | isActive('/gallery') }}">Gallery</a>
+      <a href="/publications" class="{{ page.url | isActive('/publications') }}">Publications</a>
+      <a href="/the-bridge"   class="{{ page.url | isActive('/the-bridge') }}">The Bridge</a>
+      <a href="/give"         class="{{ page.url | isActive('/give') }}">Give</a>
+      <a href="/contact"      class="{{ page.url | isActive('/contact') }}">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="/give" class="btn-outline">Donate</a>
+      <a href="/events" class="btn-primary">Register</a>
+    </div>
+    <button
+      class="nav-hamburger"
+      onclick="openMobileMenu()"
+      aria-label="Open menu"
+      aria-expanded="false"
+      id="hamburgerBtn"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+  <div class="mobile-menu-top">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">H</div>
+      <div class="nav-logo-text">
+        <strong>Hayah Ministries</strong>
+        <span>International Inc.</span>
+      </div>
+    </div>
+    <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <nav aria-label="Mobile navigation">
+    <a href="/about"        onclick="closeMobileMenu()">About Us <span>→</span></a>
+    <a href="/our-mission"  onclick="closeMobileMenu()">Mission &amp; Vision <span>→</span></a>
+    <a href="/events"       onclick="closeMobileMenu()">Events <span>→</span></a>
+    <a href="/commission"   onclick="closeMobileMenu()">Commission <span>→</span></a>
+    <a href="/gallery"      onclick="closeMobileMenu()">Gallery <span>→</span></a>
+    <a href="/publications" onclick="closeMobileMenu()">Publications <span>→</span></a>
+    <a href="/the-bridge"   onclick="closeMobileMenu()">The Bridge <span>→</span></a>
+    <a href="/give"         onclick="closeMobileMenu()">Give <span>→</span></a>
+    <a href="/contact"      onclick="closeMobileMenu()">Contact <span>→</span></a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <a href="/events"  class="btn-primary"  style="width:100%;padding:13px;font-size:0.88rem;text-align:center;display:block;">Register for an Event</a>
+    <a href="/give"    class="btn-outline"  style="width:100%;padding:12px;font-size:0.88rem;text-align:center;display:block;background:none;color:rgba(255,255,255,0.6);">Make a Donation</a>
+  </div>
+</div>
