@@ -19,13 +19,15 @@ jobs:
         with:
           node-version: "20" # Bumping to Node 20 for long-term support
       - run: npm install
-      - run: npm run build
+      - run: npm run build4
+      - run: find _site -type l -delete
 
       # Using v3 here as it's the latest for pages-artifact and uses the new architecture
       - uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: "_site"
+          compression-level: 9
 
   deploy:
     # GitHub recommends splitting the deploy step into its own job for security and logging
