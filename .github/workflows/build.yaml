@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: "20" # Bumping to Node 20 for long-term support
       - run: npm install
-      - run: npm run build4
+      - run: npm run build
       - run: find _site -type l -delete
 
       # Using v3 here as it's the latest for pages-artifact and uses the new architecture
