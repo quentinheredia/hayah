@@ -24,6 +24,7 @@ jobs:
       # Using v3 here as it's the latest for pages-artifact and uses the new architecture
       - uses: actions/upload-artifact@v4
         with:
+          name: github-pages
           path: "_site"
 
   deploy:
