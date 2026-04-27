@@ -4,11 +4,15 @@ on:
   push:
     branches: [main]
 
-# GitHub now strictly requires these permissions for Pages deployments
 permissions:
   contents: read
   pages: write
   id-token: write
+
+# Prevent overlapping deployments
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -17,20 +21,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20" # Bumping to Node 20 for long-term support
+          node-version: "20"
       - run: npm install
       - run: npm run build
-      - run: find _site -type l -delete
-
-      # Using v3 here as it's the latest for pages-artifact and uses the new architecture
-      - uses: actions/upload-artifact@v4
+      # Must use upload-pages-artifact (not upload-artifact) —
+      # deploy-pages@v4 only accepts the Pages-specific artifact format
+      - uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: "_site"
-          compression-level: 9
 
   deploy:
-    # GitHub recommends splitting the deploy step into its own job for security and logging
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

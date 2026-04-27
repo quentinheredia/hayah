@@ -15,41 +15,301 @@ description: Ministry in action — photos from Hayah International Ministries a
 <section class="media-section" id="gallery" aria-labelledby="gallery-heading">
   <div class="container">
     <h2 class="sr-only" id="gallery-heading">Photo Gallery</h2>
-    <div class="media-grid" role="list" aria-label="Ministry photo gallery">
-      <div class="media-card large fade-up" role="listitem" aria-label="Ottawa Worship Experience 2024">
-        <img src="/assets/images/003_worship_ottawa.jpeg" alt="Ottawa Worship Experience 2024" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" />
-        <div class="media-overlay">
-          <div class="media-label">Ottawa Worship Experience 2024</div>
-        </div>
+
+    <!-- Filter bar -->
+    <div class="gallery-toolbar">
+      <div class="gallery-filters" role="tablist" aria-label="Filter photos by location">
+        <button class="gallery-filter-btn active" data-filter="all" role="tab" aria-selected="true">All Photos</button>
+        <button class="gallery-filter-btn" data-filter="canada" role="tab" aria-selected="false">Canada</button>
+        <button class="gallery-filter-btn" data-filter="nigeria" role="tab" aria-selected="false">Nigeria</button>
       </div>
-      <div class="media-card fade-up" style="transition-delay:0.06s" role="listitem" aria-label="Makurdi Crusade">
-        <div class="media-placeholder">
-          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="8" width="40" height="32" rx="3"/></svg>
-          <span>Photo</span>
-        </div>
-        <div class="media-overlay"><div class="media-label">Makurdi Crusade</div></div>
-      </div>
-      <div class="media-card fade-up" style="transition-delay:0.1s" role="listitem" aria-label="Prison Outreach">
-        <div class="media-placeholder">
-          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="8" width="40" height="32" rx="3"/></svg>
-          <span>Photo</span>
-        </div>
-        <div class="media-overlay"><div class="media-label">Prison Outreach</div></div>
-      </div>
-      <div class="media-card fade-up" style="transition-delay:0.14s" role="listitem" aria-label="Hospital Visit">
-        <div class="media-placeholder">
-          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="8" width="40" height="32" rx="3"/></svg>
-          <span>Photo</span>
-        </div>
-        <div class="media-overlay"><div class="media-label">Hospital Visit</div></div>
-      </div>
-      <div class="media-card fade-up" style="transition-delay:0.18s" role="listitem" aria-label="Volunteer Team">
-        <div class="media-placeholder">
-          <svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="8" width="40" height="32" rx="3"/></svg>
-          <span>Photo</span>
-        </div>
-        <div class="media-overlay"><div class="media-label">Volunteer Team</div></div>
-      </div>
+      <div class="gallery-count" aria-live="polite" aria-atomic="true"></div>
+    </div>
+
+    <!-- Grid — populated by JS -->
+    <div class="media-grid" id="gallery-grid" role="list" aria-label="Ministry photo gallery"></div>
+
+    <!-- Load More -->
+    <div class="gallery-load-more-wrap" id="load-more-wrap">
+      <button class="gallery-load-more" id="load-more-btn" aria-label="Load more photos">Load More Photos</button>
+    </div>
+
+    <!-- Empty state -->
+    <div class="gallery-empty" id="gallery-empty" hidden>
+      <p>No photos in this category yet.</p>
     </div>
   </div>
 </section>
+
+<!-- Lightbox -->
+<div class="gallery-lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close photo viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <div class="lightbox-img-wrap">
+    <img id="lightbox-img" src="" alt="" />
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+<div class="lightbox-backdrop" id="lightbox-backdrop" hidden></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ── Photo catalogue ─────────────────────────────────────────
+  // Add new photos here. Each entry: { src, label, cat }
+  // cat: 'canada' | 'nigeria'
+  const ALL_PHOTOS = [
+    // Canada
+    { src: '/assets/images/003_worship_ottawa.jpeg',  label: 'Ottawa Worship Experience',      cat: 'canada'  },
+    { src: '/assets/images/greatawaken.jpeg',         label: 'The Great Awakening — Ottawa',    cat: 'canada'  },
+    { src: '/assets/images/general_1.jpeg',           label: 'Ministry in Action',              cat: 'canada'  },
+    { src: '/assets/images/general_2.jpeg',           label: 'Ministry in Action',              cat: 'canada'  },
+    { src: '/assets/images/general_3.jpeg',           label: 'Ministry in Action',              cat: 'canada'  },
+    { src: '/assets/images/general_4.jpeg',           label: 'Ministry in Action',              cat: 'canada'  },
+    { src: '/assets/images/general_5.jpeg',           label: 'Ministry in Action',              cat: 'canada'  },
+    // Nigeria — Middlebelt
+    { src: '/assets/images/middlebelt_1.jpeg',        label: 'Middlebelt Outreach',             cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_2.jpeg',        label: 'Middlebelt Outreach',             cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_3.jpeg',        label: 'Middlebelt Outreach',             cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_4.jpeg',        label: 'Middlebelt Outreach',             cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_5.jpeg',        label: 'Middlebelt Outreach',             cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_6.jpeg',        label: 'Ministry in the Middlebelt',      cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_7.jpeg',        label: 'Ministry in the Middlebelt',      cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_8.jpeg',        label: 'Ministry in the Middlebelt',      cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_9.jpeg',        label: 'Ministry in the Middlebelt',      cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_10.jpeg',       label: 'Ministry in the Middlebelt',      cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_11.jpeg',       label: 'Makurdi, Nigeria',                cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_12.jpeg',       label: 'Makurdi, Nigeria',                cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_13.jpeg',       label: 'Makurdi, Nigeria',                cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_14.jpeg',       label: 'Makurdi, Nigeria',                cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_15.jpeg',       label: 'Makurdi, Nigeria',                cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_16.jpeg',       label: 'Middlebelt Revival',              cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_17.jpeg',       label: 'Middlebelt Revival',              cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_18.jpeg',       label: 'Middlebelt Revival',              cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_19.jpeg',       label: 'Middlebelt Revival',              cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_20.jpeg',       label: 'Middlebelt Revival',              cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_21.jpeg',       label: 'Kingdom Advancement, Nigeria',    cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_22.jpeg',       label: 'Kingdom Advancement, Nigeria',    cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_23.jpeg',       label: 'Kingdom Advancement, Nigeria',    cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_24.jpeg',       label: 'Kingdom Advancement, Nigeria',    cat: 'nigeria' },
+    { src: '/assets/images/middlebelt_25.jpeg',       label: 'Kingdom Advancement, Nigeria',    cat: 'nigeria' },
+  ];
+
+  const BATCH_SIZE = 12;
+
+  // ── State ────────────────────────────────────────────────────
+  let activeFilter  = 'all';
+  let filteredList  = [];
+  let renderedCount = 0;
+  let lightboxIndex = 0;   // index into filteredList (rendered cards only for lightbox)
+
+  // ── DOM refs ─────────────────────────────────────────────────
+  const grid         = document.getElementById('gallery-grid');
+  const loadMoreWrap = document.getElementById('load-more-wrap');
+  const loadMoreBtn  = document.getElementById('load-more-btn');
+  const countEl      = document.getElementById('gallery-count');
+  const emptyEl      = document.getElementById('gallery-empty');
+  const filterBtns   = document.querySelectorAll('.gallery-filter-btn');
+
+  // Lightbox
+  const lightbox       = document.getElementById('lightbox');
+  const backdrop       = document.getElementById('lightbox-backdrop');
+  const lbImg          = document.getElementById('lightbox-img');
+  const lbCaption      = document.getElementById('lightbox-caption');
+  const lbCounter      = document.getElementById('lightbox-counter');
+  const lbClose        = document.getElementById('lightbox-close');
+  const lbPrev         = document.getElementById('lightbox-prev');
+  const lbNext         = document.getElementById('lightbox-next');
+
+  // ── IntersectionObserver for lazy loading ────────────────────
+  const imgObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      const src = img.dataset.src;
+      if (!src) return;
+      img.src = src;
+      img.removeAttribute('data-src');
+      img.addEventListener('load', function () {
+        img.closest('.media-card').classList.add('loaded');
+      }, { once: true });
+      imgObserver.unobserve(img);
+    });
+  }, { rootMargin: '200px 0px' });
+
+  // ── Build a single card element ──────────────────────────────
+  function buildCard(photo, globalIndex) {
+    const card = document.createElement('div');
+    card.className = 'media-card fade-up';
+    card.setAttribute('role', 'listitem');
+    card.setAttribute('aria-label', photo.label);
+    card.dataset.index = globalIndex;
+
+    const img = document.createElement('img');
+    img.dataset.src = photo.src;
+    img.alt         = photo.label;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 0.35s;';
+
+    // Fade in once loaded
+    img.addEventListener('load', function () { img.style.opacity = '1'; }, { once: true });
+
+    const overlay = document.createElement('div');
+    overlay.className = 'media-overlay';
+    overlay.innerHTML = '<div class="media-label">' + photo.label + '</div>';
+
+    card.appendChild(img);
+    card.appendChild(overlay);
+
+    // Lightbox open on click
+    card.addEventListener('click', function () {
+      // Find the index within filteredList (only rendered cards are clickable)
+      const renderedCards = Array.from(grid.querySelectorAll('.media-card'));
+      const clickedRenderedIdx = renderedCards.indexOf(card);
+      openLightbox(clickedRenderedIdx);
+    });
+
+    imgObserver.observe(img);
+    return card;
+  }
+
+  // ── Render next batch ────────────────────────────────────────
+  function renderBatch() {
+    const from = renderedCount;
+    const to   = Math.min(renderedCount + BATCH_SIZE, filteredList.length);
+
+    // Use a DocumentFragment so we only touch the DOM once
+    const frag = document.createDocumentFragment();
+    for (let i = from; i < to; i++) {
+      frag.appendChild(buildCard(filteredList[i], i));
+    }
+    grid.appendChild(frag);
+    renderedCount = to;
+
+    // Trigger fade-up on new cards (stagger)
+    const newCards = Array.from(grid.querySelectorAll('.media-card:not(.visible)'));
+    newCards.forEach(function (card, i) {
+      setTimeout(function () { card.classList.add('visible'); }, i * 50);
+    });
+
+    updateUI();
+  }
+
+  // ── Reset and re-render from scratch ─────────────────────────
+  function resetGrid() {
+    // Unobserve all pending images before clearing
+    grid.querySelectorAll('img[data-src]').forEach(function (img) {
+      imgObserver.unobserve(img);
+    });
+    grid.innerHTML = '';
+    renderedCount  = 0;
+    filteredList   = activeFilter === 'all'
+      ? ALL_PHOTOS.slice()
+      : ALL_PHOTOS.filter(function (p) { return p.cat === activeFilter; });
+    renderBatch();
+  }
+
+  // ── Update count label + Load More visibility ─────────────────
+  function updateUI() {
+    const total = filteredList.length;
+    countEl.textContent = renderedCount + ' of ' + total + ' photos';
+
+    if (total === 0) {
+      emptyEl.hidden      = false;
+      loadMoreWrap.hidden = true;
+    } else {
+      emptyEl.hidden      = true;
+      loadMoreWrap.hidden = renderedCount >= total;
+    }
+  }
+
+  // ── Filter buttons ───────────────────────────────────────────
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.dataset.filter === activeFilter) return;
+      filterBtns.forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      activeFilter = btn.dataset.filter;
+      resetGrid();
+    });
+  });
+
+  // ── Load More button ─────────────────────────────────────────
+  loadMoreBtn.addEventListener('click', function () {
+    renderBatch();
+    // Scroll the first new card into view softly
+    const cards = grid.querySelectorAll('.media-card');
+    if (cards[renderedCount - BATCH_SIZE]) {
+      cards[renderedCount - BATCH_SIZE].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+
+  // ── Lightbox ─────────────────────────────────────────────────
+  function openLightbox(renderedIdx) {
+    lightboxIndex = renderedIdx;
+    showLightboxPhoto(lightboxIndex);
+    lightbox.hidden  = false;
+    backdrop.hidden  = false;
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.hidden = true;
+    backdrop.hidden = true;
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  function showLightboxPhoto(renderedIdx) {
+    // renderedIdx maps to filteredList[renderedIdx] (only rendered cards shown)
+    const photo = filteredList[renderedIdx];
+    lbImg.src       = photo.src;
+    lbImg.alt       = photo.label;
+    lbCaption.textContent = photo.label;
+    lbCounter.textContent = (renderedIdx + 1) + ' / ' + renderedCount;
+    lbPrev.disabled = renderedIdx === 0;
+    lbNext.disabled = renderedIdx === renderedCount - 1;
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+  backdrop.addEventListener('click', closeLightbox);
+
+  lbPrev.addEventListener('click', function () {
+    if (lightboxIndex > 0) { lightboxIndex--; showLightboxPhoto(lightboxIndex); }
+  });
+  lbNext.addEventListener('click', function () {
+    if (lightboxIndex < renderedCount - 1) { lightboxIndex++; showLightboxPhoto(lightboxIndex); }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function (e) {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowLeft')   { if (lightboxIndex > 0) { lightboxIndex--; showLightboxPhoto(lightboxIndex); } }
+    if (e.key === 'ArrowRight')  { if (lightboxIndex < renderedCount - 1) { lightboxIndex++; showLightboxPhoto(lightboxIndex); } }
+  });
+
+  // ── Initial render ───────────────────────────────────────────
+  resetGrid();
+
+})();
+</script>
